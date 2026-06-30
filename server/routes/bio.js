@@ -1,59 +1,65 @@
 import { Router } from "express";
-import db from "../db.js";
+import { query } from "../db.js";
 import { authRequired } from "../middleware/auth.js";
 
 const router = Router();
 
-// Public: GET /api/bio/:slug — any visitor (no auth)
-router.get("/:slug", (req, res) => {
-  const row = db
-    .prepare(
-      "SELECT id, user_id, slug, title, bio, theme, links, created_at FROM bio_pages WHERE slug = ?"
-    )
-    .get(req.params.slug);
-  if (!row) return res.status(404).json({ error: "Not found" });
-  // increment views
-  db.prepare("UPDATE bio_pages SET views = views + 1 WHERE id = ?").run(row.id);
-  res.json({ ...row, links: JSON.parse(row.links) });
+// Public: GET /api/bio/:slug
+router.get("/:slug", async (req, res, next) => {
+  try {
+    const { rows } = await query(
+      "SELECT id, user_id, slug, title, bio, theme, links, created_at FROM bio_pages WHERE slug = $1",
+      [req.params.slug]
+    );
+    if (!rows.length) return res.status(404).json({ error: "Not found" });
+    await query("UPDATE bio_pages SET views = views + 1 WHERE id = $1", [rows[0].id]);
+    res.json({ ...rows[0], links: rows[0].links || [] });
+  } catch (e) { next(e); }
 });
 
-// Auth routes below
+// Auth routes
 router.use(authRequired);
 
 // GET /api/bio — my page
-router.get("/", (req, res) => {
-  const row = db.prepare("SELECT * FROM bio_pages WHERE user_id = ?").get(req.user.id);
-  if (!row) return res.json(null);
-  res.json({ ...row, links: JSON.parse(row.links) });
+router.get("/", async (req, res, next) => {
+  try {
+    const { rows } = await query("SELECT * FROM bio_pages WHERE user_id = $1", [req.user.id]);
+    if (!rows.length) return res.json(null);
+    res.json({ ...rows[0], links: rows[0].links || [] });
+  } catch (e) { next(e); }
 });
 
-// PUT /api/bio — create or update my page
-router.put("/", (req, res) => {
-  const { slug, title, bio, theme, links } = req.body;
-  if (!slug || !title)
-    return res.status(400).json({ error: "slug and title required" });
+// PUT /api/bio — create or update
+router.put("/", async (req, res, next) => {
+  try {
+    const { slug, title, bio, theme, links } = req.body;
+    if (!slug || !title) return res.status(400).json({ error: "slug and title required" });
+    if (!/^[a-z0-9-]{3,30}$/.test(slug))
+      return res.status(400).json({ error: "slugs: 3-30 chars, lowercase, hyphen" });
 
-  if (!/^[a-z0-9-]{3,30}$/.test(slug))
-    return res.status(400).json({ error: "slugs: 3-30 chars, lowercase, hyphen" });
+    const { rows: clash } = await query(
+      "SELECT id FROM bio_pages WHERE slug = $1 AND user_id != $2", [slug, req.user.id]
+    );
+    if (clash.length) return res.status(409).json({ error: "Slug already taken" });
 
-  const existing = db.prepare("SELECT id FROM bio_pages WHERE slug = ? AND user_id != ?").get(slug, req.user.id);
-  if (existing) return res.status(409).json({ error: "Slug already taken" });
+    const { rows: old } = await query("SELECT id FROM bio_pages WHERE user_id = $1", [req.user.id]);
+    const linksJson = JSON.stringify(links || []);
 
-  const linksJson = JSON.stringify(links || []);
-  const old = db.prepare("SELECT id FROM bio_pages WHERE user_id = ?").get(req.user.id);
+    if (old.length) {
+      await query(
+        "UPDATE bio_pages SET slug=$1, title=$2, bio=$3, theme=$4, links=$5::jsonb WHERE user_id=$6",
+        [slug, title, bio || null, theme || "aurora", linksJson, req.user.id]
+      );
+    } else {
+      await query(
+        "INSERT INTO bio_pages (user_id, slug, title, bio, theme, links) VALUES ($1,$2,$3,$4,$5,$6::jsonb)",
+        [req.user.id, slug, title, bio || null, theme || "aurora", linksJson]
+      );
+    }
 
-  if (old) {
-    db.prepare(
-      "UPDATE bio_pages SET slug=?, title=?, bio=?, theme=?, links=? WHERE user_id=?"
-    ).run(slug, title, bio || null, theme || "aurora", linksJson, req.user.id);
-  } else {
-    db.prepare(
-      "INSERT INTO bio_pages (user_id, slug, title, bio, theme, links) VALUES (?, ?, ?, ?, ?, ?)"
-    ).run(req.user.id, slug, title, bio || null, theme || "aurora", linksJson);
-  }
-
-  const row = db.prepare("SELECT * FROM bio_pages WHERE user_id = ?").get(req.user.id);
-  res.status(old ? 200 : 201).json({ ...row, links: JSON.parse(row.links) });
+    const { rows } = await query("SELECT * FROM bio_pages WHERE user_id = $1", [req.user.id]);
+    res.status(old.length ? 200 : 201).json({ ...rows[0], links: rows[0].links || [] });
+  } catch (e) { next(e); }
 });
 
 export default router;

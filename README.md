@@ -18,7 +18,7 @@ Dibuat untuk kompetisi vibe coding internasional.
 | --- | --- |
 | Frontend | Vanilla SPA (zero framework), ES Modules |
 | Backend | Node.js + Express |
-| Database | SQLite (better-sqlite3) |
+| Database | PostgreSQL (Supabase) |
 | Auth | Session token + scrypt (built-in crypto) |
 | PDF | jsPDF (client-side) |
 
@@ -27,10 +27,29 @@ Zero build step. Zero heavy dependencies.
 ## Run locally
 
 ```bash
+# 1. Setup .env (see env.example)
+PGUSER=postgres.<project-ref>
+PGPASSWORD=<db-password>
+PGHOST=aws-1-ap-southeast-1.pooler.supabase.com
+PGPORT=6543
+PGDATABASE=postgres
+
+# 2. Start
 npm install
-npm start
+node --env-file=.env server/index.js
 # buka http://localhost:3000
 ```
+
+## Deploy (Render)
+
+1. Fork/push repo ke GitHub
+2. **Render Dashboard → New Web Service** → Connect repo
+3. **Build Command:** `npm install`
+4. **Start Command:** `PORT=3000 node server/index.js`
+5. Add **Environment Variables**:
+   - `PGHOST`, `PGPORT`, `PGUSER`, `PGPASSWORD`, `PGDATABASE`
+   - (atau `DATABASE_URL` encode-URL)
+6. Deploy → selesai
 
 ## API
 
@@ -63,7 +82,7 @@ GET    /api/habits/stats
 spectra/
 ├── server/
 │   ├── index.js          # Express entry + SPA fallback
-│   ├── db.js             # SQLite schema
+│   ├── db.js             # PostgreSQL pool + schema init
 │   ├── middleware/auth.js
 │   └── routes/           # auth, invoices, bio, habits
 ├── public/

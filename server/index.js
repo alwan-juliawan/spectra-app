@@ -5,6 +5,7 @@ import authRoutes from "./routes/auth.js";
 import invoiceRoutes from "./routes/invoices.js";
 import bioRoutes from "./routes/bio.js";
 import habitRoutes from "./routes/habits.js";
+import { initSchema } from "./db.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PUBLIC = join(__dirname, "..", "public");
@@ -32,6 +33,11 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Server error" });
 });
 
-app.listen(PORT, () => {
-  console.log(`Spectra running on http://localhost:${PORT}`);
+app.listen(PORT, async () => {
+  try {
+    await initSchema();
+    console.log(`Spectra running on http://localhost:${PORT} (DB ready)`);
+  } catch (e) {
+    console.error("Schema init failed:", e.message);
+  }
 });

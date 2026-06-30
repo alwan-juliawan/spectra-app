@@ -2,7 +2,6 @@ FROM node:20-slim
 
 WORKDIR /app
 
-# Install deps (better-sqlite3 ships prebuilt binaries for this platform)
 COPY package*.json ./
 RUN npm install --omit=dev
 

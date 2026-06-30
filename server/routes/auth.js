@@ -1,5 +1,5 @@
 import { Router } from "express";
-import db from "../db.js";
+import { query } from "../db.js";
 import {
   hashPassword,
   verifyPassword,
@@ -10,51 +10,59 @@ import {
 
 const router = Router();
 
-// POST /api/auth/register
-router.post("/register", (req, res) => {
-  const { email, name, password } = req.body;
-  if (!email || !name || !password)
-    return res.status(400).json({ error: "email, name, password required" });
-  if (password.length < 6)
-    return res.status(400).json({ error: "Password at least 6 chars" });
+router.post("/register", async (req, res, next) => {
+  try {
+    const { email, name, password } = req.body;
+    if (!email || !name || !password)
+      return res.status(400).json({ error: "email, name, password required" });
+    if (password.length < 6)
+      return res.status(400).json({ error: "Password at least 6 chars" });
 
-  const existing = db.prepare("SELECT id FROM users WHERE email = ?").get(email);
-  if (existing) return res.status(409).json({ error: "Email already used" });
+    const { rows: existing } = await query("SELECT id FROM users WHERE email = $1", [email]);
+    if (existing.length) return res.status(409).json({ error: "Email already used" });
 
-  const { hash, salt } = hashPassword(password);
-  const result = db
-    .prepare("INSERT INTO users (email, name, pass_hash, pass_salt) VALUES (?, ?, ?, ?)")
-    .run(email, name, hash, salt);
+    const { hash, salt } = hashPassword(password);
+    const { rows: ins } = await query(
+      "INSERT INTO users (email, name, pass_hash, pass_salt) VALUES ($1,$2,$3,$4) RETURNING id, email, name",
+      [email, name, hash, salt]
+    );
 
-  const token = createSession(result.lastInsertRowid);
-  res.status(201).json({ token, user: { id: result.lastInsertRowid, email, name } });
+    const user = ins[0];
+    const token = await createSession(user.id);
+    res.status(201).json({ token, user });
+  } catch (e) { next(e); }
 });
 
-// POST /api/auth/login
-router.post("/login", (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password)
-    return res.status(400).json({ error: "email, password required" });
+router.post("/login", async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password)
+      return res.status(400).json({ error: "email, password required" });
 
-  const user = db.prepare("SELECT * FROM users WHERE email = ?").get(email);
-  if (!user) return res.status(401).json({ error: "Invalid credentials" });
+    const { rows } = await query("SELECT * FROM users WHERE email = $1", [email]);
+    if (!rows.length) return res.status(401).json({ error: "Invalid credentials" });
+    const user = rows[0];
 
-  if (!verifyPassword(password, user.pass_hash, user.pass_salt))
-    return res.status(401).json({ error: "Invalid credentials" });
+    if (!verifyPassword(password, user.pass_hash, user.pass_salt))
+      return res.status(401).json({ error: "Invalid credentials" });
 
-  const token = createSession(user.id);
-  res.json({ token, user: { id: user.id, email: user.email, name: user.name } });
+    const token = await createSession(user.id);
+    res.json({ token, user: { id: user.id, email: user.email, name: user.name } });
+  } catch (e) { next(e); }
 });
 
-// GET /api/auth/me
-router.get("/me", authRequired, (req, res) => {
-  res.json({ user: req.user });
+router.get("/me", async (req, res, next) => {
+  try { await authRequired(req, res, () => res.json({ user: req.user })); }
+  catch (e) { next(e); }
 });
 
-// POST /api/auth/logout
-router.post("/logout", authRequired, (req, res) => {
-  destroySession(req.token);
-  res.json({ ok: true });
+router.post("/logout", async (req, res, next) => {
+  try {
+    await authRequired(req, res, async () => {
+      await destroySession(req.token);
+      res.json({ ok: true });
+    });
+  } catch (e) { next(e); }
 });
 
 export default router;
