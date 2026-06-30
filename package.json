@@ -1,0 +1,22 @@
+{
+  "name": "spectra-tools",
+  "version": "1.0.0",
+  "description": "Spectra — 3 free tools in one: Tagihan (invoices), Gerbang (link-in-bio), Pulih (habit tracker).",
+  "type": "module",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "express": "^4.21.0"
+  },
+  "license": "MIT",
+  "allowScripts": {
+    "better-sqlite3@11.10.0": true
+  }
+}

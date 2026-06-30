@@ -1,0 +1,76 @@
+/* ===== AUTH MODAL ===== */
+.auth-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:24px;animation:fadeIn 200ms}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.auth-modal{background:var(--bg-elevated);border-radius:var(--r-xl);width:100%;max-width:400px;padding:40px 28px 28px;position:relative;box-shadow:var(--shadow-lg);animation:pageIn 300ms var(--ease)}
+.auth-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;color:var(--fg-muted);font-size:16px;display:flex;align-items:center;justify-content:center;transition:background 180ms,color 180ms}
+.auth-close:hover{background:var(--accent-soft);color:var(--accent)}
+.auth-tabs{display:flex;gap:0;margin-bottom:24px;border-bottom:1px solid var(--border)}
+.auth-tab{flex:1;padding:10px;text-align:center;font-size:14px;font-weight:600;color:var(--fg-muted);border-bottom:2px solid transparent;transition:color 200ms,border-color 200ms}
+.auth-tab.active{color:var(--accent);border-color:var(--accent)}
+#auth-name-field{display:none}
+.auth-error{font-size:13px;color:var(--red);margin-top:12px;text-align:center}
+
+/* ===== HOME ===== */
+.hero-spectra{text-align:center;padding:80px 24px 60px}
+.hero-spectra h1{font-size:clamp(40px,8vw,72px);margin-bottom:16px;background:linear-gradient(135deg,var(--fg) 30%,var(--accent) 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-spectra p{font-size:clamp(16px,2.5vw,20px);color:var(--fg-muted);max-width:520px;margin:0 auto 32px}
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:40px}
+.tool-card{background:var(--bg-card);border-radius:var(--r-xl);padding:32px 24px;box-shadow:var(--shadow-sm);transition-property:box-shadow,translate;transition-duration:300ms;transition-timing-function:var(--ease);text-align:center}
+.tool-card:hover{box-shadow:var(--shadow-lg);translate:0 -6px}
+.tool-icon{width:56px;height:56px;border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.tool-icon svg{width:28px;height:28px}
+.tool-icon--purple{background:var(--accent-soft);color:var(--accent)}
+.tool-icon--green{background:var(--green-soft);color:var(--green)}
+.tool-icon--amber{background:var(--amber-soft);color:var(--amber)}
+.tool-card h3{font-size:18px;margin-bottom:6px}
+.tool-card p{font-size:14px;color:var(--fg-muted);text-wrap:pretty;margin-bottom:16px}
+.footer-app{text-align:center;padding:32px 24px;color:var(--fg-dim);font-size:13px;border-top:1px solid var(--border);margin-top:80px}
+
+/* ===== INVOICE ===== */
+.invoice-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.invoice-list{display:flex;flex-direction:column;gap:12px}
+.invoice-item{display:flex;justify-content:space-between;align-items:center;background:var(--bg-card);border-radius:var(--r-md);padding:16px 20px;box-shadow:var(--shadow-sm);gap:16px}
+.invoice-item-info{flex:1;min-width:0}
+.invoice-item h4{font-size:15px;font-weight:700;margin-bottom:2px}
+.invoice-item p{font-size:13px;color:var(--fg-muted)}
+.invoice-item-actions{display:flex;gap:8px;flex-shrink:0}
+.invoice-total{font-size:15px;font-weight:700;white-space:nowrap}
+.invoice-form{max-width:640px}
+.invoice-form .item-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.invoice-form .item-row input{flex:1}
+.invoice-form .item-row .btn-icon{flex-shrink:0}
+.invoice-detail{max-width:720px}
+.invoice-detail table{width:100%;border-collapse:collapse;margin-top:16px}
+.invoice-detail th,.invoice-detail td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);font-size:14px}
+.invoice-detail th{color:var(--fg-muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.invoice-detail .total-row td{font-weight:700;font-size:16px;border-bottom:none;padding-top:16px}
+
+/* ===== BIO ===== */
+.bio-form{max-width:560px}
+.bio-preview-title{font-size:clamp(24px,4vw,40px);margin-bottom:4px}
+.bio-preview-bio{font-size:14px;color:var(--fg-muted);margin-bottom:20px}
+.bio-links{display:flex;flex-direction:column;gap:10px}
+.bio-link{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:var(--r-md);font-size:14px;font-weight:600;background:var(--bg-card);box-shadow:var(--shadow-sm);transition-property:box-shadow,translate;transition-duration:180ms}
+.bio-link:hover{box-shadow:var(--shadow-md);translate:0 -2px}
+.bio-link svg{width:16px;height:16px}
+
+/* ===== HABIT ===== */
+.habit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
+.habit-card{background:var(--bg-card);border-radius:var(--r-lg);padding:20px;box-shadow:var(--shadow-sm);transition-property:box-shadow;transition-duration:200ms;text-align:center}
+.habit-card:hover{box-shadow:var(--shadow-md)}
+.habit-card-done{outline:2px solid var(--green);outline-offset:-2px}
+.habit-name{font-size:15px;font-weight:600;margin-bottom:8px}
+.habit-check{width:48px;height:48px;border-radius:50%;border:2px solid var(--border-strong);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;transition:background 200ms,border-color 200ms;font-size:20px}
+.habit-check.done{background:var(--green-soft);border-color:var(--green)}
+.habit-streak{font-size:12px;color:var(--fg-muted)}
+.habit-streak strong{color:var(--fg)}
+.habit-week{display:flex;gap:4px;justify-content:center;margin-top:12px}
+.habit-day{width:10px;height:10px;border-radius:2px;background:var(--border)}
+.habit-day.done{background:var(--green)}
+.habit-form{max-width:400px}
+.stats-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.stats-head h3{font-size:16px}
+
+/* ===== PUBLIC BIO PAGE ===== */
+.public-bio{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center}
+.public-bio-aurora{--pub-bg:#0a0a0f;--pub-card:#16161f;--pub-link:#16161f}
