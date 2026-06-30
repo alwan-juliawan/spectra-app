@@ -12,13 +12,15 @@ const router = Router();
 
 router.post("/register", async (req, res, next) => {
   try {
-    const { email, name, password } = req.body;
+    let { email, name, password } = req.body;
     if (!email || !name || !password)
       return res.status(400).json({ error: "email, name, password required" });
     if (password.length < 6)
       return res.status(400).json({ error: "Password at least 6 chars" });
 
-    const { rows: existing } = await query("SELECT id FROM users WHERE email = $1", [email]);
+    email = email.trim().toLowerCase();
+
+    const { rows: existing } = await query("SELECT id, email FROM users WHERE LOWER(email) = $1", [email]);
     if (existing.length) return res.status(409).json({ error: "Email already used" });
 
     const { hash, salt } = hashPassword(password);
@@ -35,11 +37,13 @@ router.post("/register", async (req, res, next) => {
 
 router.post("/login", async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
     if (!email || !password)
       return res.status(400).json({ error: "email, password required" });
 
-    const { rows } = await query("SELECT * FROM users WHERE email = $1", [email]);
+    email = email.trim().toLowerCase();
+
+    const { rows } = await query("SELECT * FROM users WHERE LOWER(email) = $1", [email]);
     if (!rows.length) return res.status(401).json({ error: "Invalid credentials" });
     const user = rows[0];
 

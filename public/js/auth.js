@@ -56,7 +56,7 @@ export function showAuth() {
   document.getElementById("auth-form").addEventListener("submit", async (e) => {
     e.preventDefault();
     const isReg = document.querySelector(".auth-tab.active").dataset.tab === "register";
-    const email = document.getElementById("auth-email").value.trim();
+    const email = document.getElementById("auth-email").value.trim().toLowerCase();
     const password = document.getElementById("auth-pass").value;
     const name = document.getElementById("auth-name")?.value?.trim() || "";
     const btn = document.getElementById("auth-submit");
