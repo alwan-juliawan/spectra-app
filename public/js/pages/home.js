@@ -115,8 +115,7 @@ export function renderHome() {
     });
   });
 
-  const canvas = document.getElementById("hero-canvas");
-  if (canvas) initParticles(canvas);
+  initParticles();
   const typeEl = document.getElementById("hero-type");
   if (typeEl) startTyping(typeEl);
   initReveal();
