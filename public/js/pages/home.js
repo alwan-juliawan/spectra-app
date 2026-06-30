@@ -4,43 +4,58 @@ const ICONS = {
   tagihan: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>`,
   gerbang: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
   pulih: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
+  check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>`,
 };
+
+const INVOICE_MOCK = `<svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="16" width="180" height="10" rx="2" fill="#7c6cf0" opacity=".4"/><text x="260" y="24" fill="#9d9aab" font-size="9" font-family="Inter,system-ui,sans-serif">INV-0001</text><text x="20" y="44" fill="#f4f4f7" font-size="11" font-family="Inter,system-ui,sans-serif" font-weight="600">Design — Landing Page</text><text x="20" y="58" fill="#9d9aab" font-size="10" font-family="Inter,system-ui,sans-serif">PT Maju Sejahtera</text><rect x="250" y="42" width="50" height="18" rx="4" fill="#34d399" opacity=".15"/><text x="259" y="54" fill="#34d399" font-size="9" font-family="Inter,system-ui,sans-serif">Lunas</text><text x="286" y="45" fill="#f4f4f7" font-size="11" font-family="Inter,system-ui,sans-serif" font-weight="700">Rp2,5jt</text><rect x="20" y="75" width="280" height="1" fill="#7c6cf0" opacity=".07"/><text x="20" y="103" fill="#f4f4f7" font-size="11" font-family="Inter,system-ui,sans-serif" font-weight="600">Brand Identity</text><text x="20" y="117" fill="#9d9aab" font-size="10" font-family="Inter,system-ui,sans-serif">Startup XYZ</text><rect x="250" y="101" width="50" height="18" rx="4" fill="#fbbf24" opacity=".15"/><text x="259" y="113" fill="#fbbf24" font-size="9" font-family="Inter,system-ui,sans-serif">Tertunda</text><text x="286" y="104" fill="#f4f4f7" font-size="11" font-family="Inter,system-ui,sans-serif" font-weight="700">Rp5jt</text><rect x="20" y="134" width="280" height="1" fill="#7c6cf0" opacity=".07"/><text x="20" y="162" fill="#f4f4f7" font-size="11" font-family="Inter,system-ui,sans-serif" font-weight="600">Mobile App Dev</text><text x="20" y="176" fill="#9d9aab" font-size="10" font-family="Inter,system-ui,sans-serif">TechCorp Inc</text><rect x="250" y="160" width="50" height="18" rx="4" fill="#f87171" opacity=".15"/><text x="259" y="172" fill="#f87171" font-size="9" font-family="Inter,system-ui,sans-serif">Jatuh Tempo</text><text x="281" y="163" fill="#f4f4f7" font-size="11" font-family="Inter,system-ui,sans-serif" font-weight="700">Rp8jt</text><rect x="20" y="195" width="280" height="1" fill="#7c6cf0" opacity=".07"/><text x="20" y="214" fill="#9d9aab" font-size="9" font-family="Inter,system-ui,sans-serif">Total tagihan aktif: Rp15,5jt · Unduh PDF →</text></svg>`;
+
+const BIO_MOCK = `<svg viewBox="0 0 280 260" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="280" height="260" rx="16" fill="#16161f" stroke="#34d399" stroke-opacity=".12" stroke-width="1"/><circle cx="140" cy="44" r="24" fill="#34d399" opacity=".2"/><text x="140" y="88" fill="#f4f4f7" font-size="13" font-family="Inter,system-ui,sans-serif" font-weight="700" text-anchor="middle">@budi.design</text><text x="140" y="104" fill="#9d9aab" font-size="10" font-family="Inter,system-ui,sans-serif" text-anchor="middle">UI/UX Designer · Mentor</text><rect x="20" y="124" width="240" height="36" rx="8" fill="#1c1c27"/><text x="140" y="147" fill="#f4f4f7" font-size="11" font-family="Inter,system-ui,sans-serif" text-anchor="middle">Portfolio ↗</text><rect x="20" y="168" width="240" height="36" rx="8" fill="#1c1c27"/><text x="140" y="191" fill="#f4f4f7" font-size="11" font-family="Inter,system-ui,sans-serif" text-anchor="middle">Dribbble ↗</text><rect x="20" y="212" width="240" height="36" rx="8" fill="#1c1c27"/><text x="140" y="235" fill="#f4f4f7" font-size="11" font-family="Inter,system-ui,sans-serif" text-anchor="middle">WhatsApp ↗</text><text x="140" y="252" fill="#67647a" font-size="8" font-family="Inter,system-ui,sans-serif" text-anchor="middle">GPS: Jakarta · 1.230 kunjungan</text></svg>`;
+
+const HABIT_MOCK = `<svg viewBox="0 0 300 240" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="20" y="24" fill="#f4f4f7" font-size="13" font-family="Inter,system-ui,sans-serif" font-weight="700">Rutinitas Harian</text><text x="260" y="24" fill="#fbbf24" font-size="10" font-family="Inter,system-ui,sans-serif">🔥 7 hari</text><text x="20" y="56" fill="#f4f4f7" font-size="11" font-family="Inter,system-ui,sans-serif">Minum Air</text><circle cx="60" cy="52" r="11" fill="#34d399" opacity=".2" stroke="#34d399" stroke-width="1.5"/><text x="56" y="56" fill="#34d399" font-size="9" font-family="Inter,system-ui,sans-serif">✓</text><circle cx="90" cy="52" r="11" fill="#34d399" opacity=".2" stroke="#34d399" stroke-width="1.5"/><text x="86" y="56" fill="#34d399" font-size="9" font-family="Inter,system-ui,sans-serif">✓</text><circle cx="120" cy="52" r="11" fill="none" stroke="#34d399" stroke-width="1.5"/><text x="116" y="56" fill="#34d399" font-size="9" font-family="Inter,system-ui,sans-serif">✓</text><circle cx="150" cy="52" r="11" fill="none" stroke="#34d399" stroke-width="1.5"/><circle cx="180" cy="52" r="11" fill="none" stroke="#34d399" stroke-width="1.5"/><circle cx="210" cy="52" r="11" fill="none" stroke="#67647a" stroke-width="1"/><circle cx="240" cy="52" r="11" fill="none" stroke="#67647a" stroke-width="1"/><circle cx="270" cy="52" r="11" fill="none" stroke="#67647a" stroke-width="1"/><text x="20" y="92" fill="#f4f4f7" font-size="11" font-family="Inter,system-ui,sans-serif">Olahraga</text><circle cx="60" cy="88" r="11" fill="#fbbf24" opacity=".2" stroke="#fbbf24" stroke-width="1.5"/><text x="56" y="92" fill="#fbbf24" font-size="9" font-family="Inter,system-ui,sans-serif">✓</text><circle cx="90" cy="88" r="11" fill="#fbbf24" opacity=".2" stroke="#fbbf24" stroke-width="1.5"/><text x="86" y="92" fill="#fbbf24" font-size="9" font-family="Inter,system-ui,sans-serif">✓</text><circle cx="120" cy="88" r="11" fill="#fbbf24" opacity=".2" stroke="#fbbf24" stroke-width="1.5"/><text x="116" y="92" fill="#fbbf24" font-size="9" font-family="Inter,system-ui,sans-serif">✓</text><circle cx="150" cy="88" r="11" fill="#fbbf24" opacity=".2" stroke="#fbbf24" stroke-width="1.5"/><text x="146" y="92" fill="#fbbf24" font-size="9" font-family="Inter,system-ui,sans-serif">✓</text><circle cx="180" cy="88" r="11" fill="none" stroke="#fbbf24" stroke-width="1.5"/><circle cx="210" cy="88" r="11" fill="none" stroke="#67647a" stroke-width="1"/><circle cx="240" cy="88" r="11" fill="none" stroke="#67647a" stroke-width="1"/><circle cx="270" cy="88" r="11" fill="none" stroke="#67647a" stroke-width="1"/><text x="20" y="128" fill="#f4f4f7" font-size="11" font-family="Inter,system-ui,sans-serif">Baca Buku</text><circle cx="60" cy="124" r="11" fill="#7c6cf0" opacity=".2" stroke="#7c6cf0" stroke-width="1.5"/><text x="56" y="128" fill="#7c6cf0" font-size="9" font-family="Inter,system-ui,sans-serif">✓</text><circle cx="90" cy="124" r="11" fill="none" stroke="#7c6cf0" stroke-width="1.5"/><circle cx="120" cy="124" r="11" fill="none" stroke="#67647a" stroke-width="1"/><circle cx="150" cy="124" r="11" fill="none" stroke="#67647a" stroke-width="1"/><circle cx="180" cy="124" r="11" fill="none" stroke="#67647a" stroke-width="1"/><circle cx="210" cy="124" r="11" fill="none" stroke="#67647a" stroke-width="1"/><circle cx="240" cy="124" r="11" fill="none" stroke="#67647a" stroke-width="1"/><circle cx="270" cy="124" r="11" fill="none" stroke="#67647a" stroke-width="1"/><rect x="20" y="150" width="260" height="60" rx="10" fill="#1c1c27"/><text x="52" y="176" fill="#9d9aab" font-size="9" font-family="Inter,system-ui,sans-serif" text-anchor="middle">Total</text><text x="52" y="194" fill="#f4f4f7" font-size="15" font-family="Inter,system-ui,sans-serif" font-weight="700" text-anchor="middle">87</text><rect x="100" y="158" width="1" height="44" fill="#7c6cf0" opacity=".1"/><text x="140" y="176" fill="#9d9aab" font-size="9" font-family="Inter,system-ui,sans-serif" text-anchor="middle">Streak</text><text x="140" y="194" fill="#f4f4f7" font-size="15" font-family="Inter,system-ui,sans-serif" font-weight="700" text-anchor="middle">7</text><rect x="185" y="158" width="1" height="44" fill="#7c6cf0" opacity=".1"/><text x="225" y="176" fill="#9d9aab" font-size="9" font-family="Inter,system-ui,sans-serif" text-anchor="middle">Pekan Ini</text><text x="225" y="194" fill="#f4f4f7" font-size="15" font-family="Inter,system-ui,sans-serif" font-weight="700" text-anchor="middle">12/21</text></svg>`;
+
+function toolSection(title, color, mockSvg, features, reversed, desc) {
+  const cls = reversed ? "feat-section feat-reverse" : "feat-section";
+  return `<div class="${cls}">
+<div class="feat-visual"><div class="feat-visual-inner" style="--fc:var(--${color});--fcs:var(--${color}-soft)">${mockSvg}</div></div>
+<div class="feat-text">
+<span class="feat-badge" style="background:var(--fcs);color:var(--fc)">${title}</span>
+<h2>${title === "Tagihan" ? "Invoice profesional. Gratis." : title === "Gerbang" ? "Satu link untuk semua link." : "Bangun rutinitas. Raih streak."}</h2>
+<p class="feat-desc">${desc}</p>
+<ul class="feat-list">${features.map(f => `<li><span class="feat-check" style="color:var(--fc)">${ICONS.check}</span> ${f}</li>`).join("")}</ul>
+</div></div>`;
+}
 
 export function renderHome() {
   const app = document.getElementById("app");
   app.innerHTML = `
-<div class="hero-spectra reveal">
-  <h1>Spectra</h1>
-  <p>Tiga alat gratis untuk produktivitas dan kreasi kamu. Tanpa biaya, tanpa batas.</p>
-  ${auth.user ? `<p class="muted">Halo, ${auth.user.name}!</p>` : `<button class="btn btn-primary" id="home-login">Mulai Gratis</button>`}
+<div class="hero reveal">
+  <div class="hero-badge">🚀 Gratis selamanya · Tanpa kartu</div>
+  <h1>Spektrum<br/>Produktivitasmu</h1>
+  <p>Invoice auto, link-in-bio, habit tracker —<br/>tiga alat gratis, satu platform.</p>
+  ${auth.user ? `<p class="hero-greeting">👋 Halo, ${auth.user.name}!</p>` : `<button class="btn btn-primary btn-lg" id="home-login">Mulai Gratis →</button>`}
 </div>
-<div class="tool-grid container" id="tool-grid">
-  <div class="tool-card card-hover" data-tool="invoice">
-    <div class="tool-icon tool-icon--purple">${ICONS.tagihan}</div>
-    <h3>Tagihan</h3>
-    <p>Buat invoice profesional, export PDF, track status pembayaran. Gratis.</p>
-    <span class="btn btn-ghost btn-sm">Buka →</span>
-  </div>
-  <div class="tool-card card-hover" data-tool="page">
-    <div class="tool-icon tool-icon--green">${ICONS.gerbang}</div>
-    <h3>Gerbang</h3>
-    <p>Link-in-bio gratis. Custom theme, unlimited links, visitor counter.</p>
-    <span class="btn btn-ghost btn-sm">Buka →</span>
-  </div>
-  <div class="tool-card card-hover" data-tool="habit">
-    <div class="tool-icon tool-icon--amber">${ICONS.pulih}</div>
-    <h3>Pulih</h3>
-    <p>Habit tracker harian. Streak, chart, dan progress visual.</p>
-    <span class="btn btn-ghost btn-sm">Buka →</span>
-  </div>
+<div class="tool-grid container">
+  <div class="tool-card card-hover" data-tool="invoice"><div class="tool-icon tool-icon--purple">${ICONS.tagihan}</div><h3>Tagihan</h3><p>Invoice + PDF + tracking status.</p><span class="btn btn-ghost btn-sm">Buka →</span></div>
+  <div class="tool-card card-hover" data-tool="page"><div class="tool-icon tool-icon--green">${ICONS.gerbang}</div><h3>Gerbang</h3><p>Link-in-bio, unlimited links, tema.</p><span class="btn btn-ghost btn-sm">Buka →</span></div>
+  <div class="tool-card card-hover" data-tool="habit"><div class="tool-icon tool-icon--amber">${ICONS.pulih}</div><h3>Pulih</h3><p>Habit tracker + streak + statistik.</p><span class="btn btn-ghost btn-sm">Buka →</span></div>
 </div>
-<footer class="footer-app">Spectra — gratis untuk semua orang</footer>`;
+<div class="feat-container container">
+  <div class="feat-head"><h2>Lihat cara kerjanya</h2><p>Simpel, langsung pakai. Tanpa tutorial bertele-tele.</p></div>
+  ${toolSection("Tagihan","accent",INVOICE_MOCK,["Export PDF — siap kirim ke klien","Status: lunas, tertunda, jatuh tempo","Multi-mata uang (IDR, USD, SGD)","Auto-numbering invoice"],0,"Freelancer, UMKM, agensi — buat invoice profesional tanpa ribet. Lacak status, export PDF, semua gratis.")}
+  ${toolSection("Gerbang","green",BIO_MOCK,["Custom slug bebas","Link tak terbatas, atur ulang kapan aja","Beberapa tema warna","Visitor counter real-time"],1,"Kumpulin semua link penting di satu halaman. Pasang di bio IG, TikTok, WA. Pantau pengunjung, ganti tema semaumu.")}
+  ${toolSection("Pulih","amber",HABIT_MOCK,["Check-in harian 1 ketuk","Streak counter bikin makin semangat","Statistik pekanan + total","Ikon & warna tiap kebiasaan"],0,"Bangun rutinitas konsisten. Catat habit harian, lihat streak, ukur progress dari pekan ke pekan.")}
+</div>
+<div class="cta-section"><div class="container center">
+  <h2>Siap naikkan level produktivitas?</h2>
+  <p>Gratis selamanya. Tanpa daftar kartu. Langsung pakai.</p>
+  ${auth.user ? '<button class="btn btn-primary btn-lg" onclick="window.__nav(\'/invoice\')">Mulai Pakai →</button>' : '<button class="btn btn-primary btn-lg" id="home-login">Buat Akun Gratis →</button>'}
+</div></div>
+<footer class="footer-app">Spectra — gratisan, bukan murahan. ❤️ Indonesia</footer>`;
 
   document.getElementById("home-login")?.addEventListener("click", showAuth);
-  document.querySelectorAll("[data-tool]").forEach((el) => {
+  document.querySelectorAll("[data-tool]").forEach(el => {
     el.addEventListener("click", () => {
-      const page = el.dataset.tool;
-      if (auth.user) window.__nav(`/${page}`);
+      if (auth.user) window.__nav(`/${el.dataset.tool}`);
       else showAuth();
     });
   });
