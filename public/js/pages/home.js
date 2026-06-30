@@ -81,7 +81,6 @@ export function renderHome() {
   const app = document.getElementById("app");
   app.innerHTML = `
 <section class="hero">
-  <canvas class="hero-canvas" id="hero-canvas"></canvas>
   <div class="hero-inner">
     <div class="hero-badge">🚀 Gratis selamanya · Tanpa kartu</div>
     <h1>Spektrum<br/><span class="hero-type" id="hero-type"></span><span class="hero-cursor"></span></h1>
