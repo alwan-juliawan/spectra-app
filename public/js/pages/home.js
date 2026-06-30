@@ -4,7 +4,8 @@ import { initParticles } from "../particles.js";
 const TYPE_WORDS = ["produktivitas", "kreativitas", "bisnis kamu", "rutinitas"];
 
 function startTyping(el) {
-  let wi = 0, ci = 0, deleting = false;
+  let wi = 0, ci = 1, deleting = false;
+  el.textContent = TYPE_WORDS[0][0];
   function tick() {
     const word = TYPE_WORDS[wi];
     if (!deleting) {

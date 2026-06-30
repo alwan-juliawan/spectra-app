@@ -17,7 +17,7 @@
 .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:99px;background:var(--accent-soft);color:var(--accent);font-size:13px;font-weight:600;margin-bottom:28px}
 .hero h1{font-size:clamp(44px,10vw,80px);line-height:1;margin-bottom:20px;letter-spacing:-0.03em;background:linear-gradient(135deg,var(--fg) 20%,var(--accent) 90%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-type{background:linear-gradient(135deg,var(--accent),#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-cursor{display:inline-block;width:3px;height:clamp(32px,7vw,52px);margin-left:4px;border-radius:2px;background:linear-gradient(180deg,var(--accent),#f472b6,#fbbf24);vertical-align:text-top;animation:cursorBlink 1s steps(2) infinite;opacity:0}
+.hero-cursor{display:inline-block;width:3px;height:clamp(32px,7vw,52px);margin-left:4px;border-radius:2px;background:linear-gradient(180deg,var(--accent),#f472b6,#fbbf24);vertical-align:text-top;animation:cursorBlink 1.2s steps(2) infinite}
 @keyframes cursorBlink{0%{opacity:0}50%{opacity:1}}
 .hero p{font-size:clamp(16px,2.2vw,20px);color:var(--fg-muted);margin:0 auto 32px;line-height:1.5}
 .hero-greeting{font-size:16px;color:var(--fg-muted)}
