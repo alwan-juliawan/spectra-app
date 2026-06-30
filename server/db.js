@@ -3,7 +3,10 @@ import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const db = new Database(join(__dirname, "spectra.db"));
+const DB_PATH = process.env.FLY_VOLUME_PATH
+  ? join(process.env.FLY_VOLUME_PATH, "spectra.db")
+  : join(__dirname, "spectra.db");
+const db = new Database(DB_PATH);
 
 db.pragma("journal_mode = WAL");
 db.pragma("foreign_keys = ON");
