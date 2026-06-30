@@ -14,11 +14,13 @@ export function initParticles(canvas) {
   resize();
   window.addEventListener("resize", resize);
 
-  canvas.addEventListener("mousemove", (e) => {
-    mx = e.clientX - canvas.getBoundingClientRect().left;
-    my = e.clientY - canvas.getBoundingClientRect().top;
+  const rect = () => canvas.getBoundingClientRect();
+  window.addEventListener("mousemove", (e) => {
+    const r = rect();
+    mx = e.clientX - r.left;
+    my = e.clientY - r.top;
   });
-  canvas.addEventListener("mouseleave", () => { mx = my = null; });
+  window.addEventListener("mouseleave", () => { mx = my = null; });
 
   for (let i = 0; i < COUNT; i++) {
     pts.push({
