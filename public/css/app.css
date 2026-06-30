@@ -11,9 +11,14 @@
 .auth-error{font-size:13px;color:var(--red);margin-top:12px;text-align:center}
 
 /* ===== HOME ===== */
-.hero{text-align:center;padding:100px 24px 60px;max-width:800px;margin:0 auto}
+.hero{position:relative;text-align:center;padding:120px 24px 80px;max-width:800px;margin:0 auto;overflow:hidden}
+.hero-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.hero-inner{position:relative;z-index:1}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:99px;background:var(--accent-soft);color:var(--accent);font-size:13px;font-weight:600;margin-bottom:28px}
 .hero h1{font-size:clamp(44px,10vw,80px);line-height:1;margin-bottom:20px;letter-spacing:-0.03em;background:linear-gradient(135deg,var(--fg) 20%,var(--accent) 90%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-type{background:linear-gradient(135deg,var(--accent),#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-cursor{display:inline-block;width:3px;height:clamp(32px,7vw,52px);margin-left:4px;border-radius:2px;background:linear-gradient(180deg,var(--accent),#f472b6,#fbbf24);vertical-align:text-top;animation:cursorBlink 1s steps(2) infinite;opacity:0}
+@keyframes cursorBlink{0%{opacity:0}50%{opacity:1}}
 .hero p{font-size:clamp(16px,2.2vw,20px);color:var(--fg-muted);margin:0 auto 32px;line-height:1.5}
 .hero-greeting{font-size:16px;color:var(--fg-muted)}
 .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:20px;max-width:680px;margin-left:auto;margin-right:auto}
@@ -26,6 +31,10 @@
 .tool-icon--amber{background:var(--amber-soft);color:var(--amber)}
 .tool-card h3{font-size:16px;margin-bottom:4px}
 .tool-card p{font-size:13px;color:var(--fg-muted);margin-bottom:12px}
+
+/* ===== REVEAL ===== */
+.reveal-up{opacity:0;transform:translateY(32px);transition:opacity 600ms var(--ease),transform 600ms var(--ease)}
+.reveal-up.in{opacity:1;transform:none}
 
 /* ===== FEATURE SECTIONS ===== */
 .feat-container{padding-top:40px;padding-bottom:40px}
