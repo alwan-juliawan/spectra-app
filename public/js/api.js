@@ -10,10 +10,19 @@ async function request(method, path, body) {
     opts.body = JSON.stringify(body);
   }
 
-  const res = await fetch(`${BASE}/api${path}`, opts);
-  const data = await res.json().catch(() => null);
-  if (!res.ok) throw new Error(data?.error || res.statusText);
-  return data;
+  // 15s timeout buat cold start Render (free tier sampe 50s)
+  const ctrl = new AbortController();
+  const tid = setTimeout(() => ctrl.abort(), 15000);
+  opts.signal = ctrl.signal;
+
+  try {
+    const res = await fetch(`${BASE}/api${path}`, opts);
+    const data = await res.json().catch(() => null);
+    if (!res.ok) throw new Error(data?.error || res.statusText);
+    return data;
+  } finally {
+    clearTimeout(tid);
+  }
 }
 
 export const api = {

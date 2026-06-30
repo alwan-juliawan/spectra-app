@@ -62,7 +62,7 @@ export function showAuth() {
     const btn = document.getElementById("auth-submit");
     const err = document.getElementById("auth-error");
     btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>';
+    btn.innerHTML = '<span class="spinner"></span> Memuat...';
     err.textContent = "";
     try {
       const data = isReg ? await api.register({ email, name, password }) : await api.login({ email, password });
@@ -73,7 +73,9 @@ export function showAuth() {
       notify();
       window.__router?.rerender();
     } catch (e) {
-      err.textContent = e.message || "Gagal. Coba lagi.";
+      err.textContent = e.name === "AbortError"
+        ? "Server lagi nyala (cold start). Tunggu ~10 detik, coba lagi."
+        : (e.message || "Gagal. Coba lagi.");
     } finally {
       btn.disabled = false;
       btn.textContent = isReg ? "Buat Akun" : "Masuk";
