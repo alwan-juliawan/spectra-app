@@ -65,6 +65,37 @@
   .hero h1{font-size:40px}
 }
 
+/* ===== MOCKUPS ===== */
+.mocku{border-radius:var(--r-lg);padding:16px;background:var(--bg-card);box-shadow:var(--shadow-sm)}
+.mocku-inv-row{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--border)}
+.mocku-inv-row:last-of-type{border-bottom:none}
+.mocku-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px;white-space:nowrap}
+.mocku-badge-g{background:var(--green-soft);color:var(--green)}
+.mocku-badge-a{background:var(--amber-soft);color:var(--amber)}
+.mocku-badge-r{background:var(--red-soft);color:var(--red)}
+.mocku-inv-footer{padding:10px 0 2px;font-size:11px;color:var(--fg-muted)}
+.mocku-bio{text-align:center;padding:24px 16px}
+.mocku-av{width:48px;height:48px;border-radius:50%;background:var(--green-soft);color:var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:20px;font-weight:700}
+.mocku-bio-name{font-size:14px;font-weight:700;margin-bottom:2px}
+.mocku-bio-desc{font-size:12px;color:var(--fg-muted);margin-bottom:16px}
+.mocku-bio-links{display:flex;flex-direction:column;gap:8px}
+.mocku-bio-links span{background:var(--bg-input);border-radius:var(--r-sm);padding:8px 12px;font-size:12px;font-weight:600}
+.mocku-bio-foot{font-size:10px;color:var(--fg-dim);margin-top:16px}
+.mocku-h-head{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;margin-bottom:12px}
+.mocku-streak{color:var(--amber);font-size:11px}
+.mocku-h-row{display:flex;align-items:center;margin-bottom:10px;gap:8px}
+.mocku-h-label{font-size:12px;color:var(--fg);width:72px;flex-shrink:0}
+.mocku-h-dots{display:flex;gap:4px}
+.mocku-h-circle{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;border:1.5px solid var(--border-strong);color:var(--fg-muted)}
+.mocku-h-circle.mc-done{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+.mocku-h-circle.mc-miss{border-color:var(--border-strong)}
+.mocku-h-foot{display:flex;gap:16px;justify-content:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--fg-dim)}
+.mocku-h-foot span{text-align:center}
+.mocku-h-foot span::before{content:"";display:block;font-size:9px;color:var(--fg-muted);margin-bottom:2px}
+.mocku-h-foot span:first-child::before{content:"Total"}
+.mocku-h-foot span:nth-child(2)::before{content:"Streak"}
+.mocku-h-foot span:last-child::before{content:"Pekan"}
+
 /* ===== INVOICE ===== */
 .invoice-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
 .invoice-list{display:flex;flex-direction:column;gap:12px}
