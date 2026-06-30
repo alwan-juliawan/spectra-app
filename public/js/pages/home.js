@@ -1,7 +1,7 @@
 import { auth, showAuth } from "../auth.js";
 import { initParticles } from "../particles.js";
 
-const TYPE_WORDS = ["produktivitas", "kreativitas", "bisnis kamu", "rutinitas"];
+const TYPE_WORDS = ["Produktivitas", "Kreativitas", "Bisnis Kamu", "Rutinitas"];
 
 function startTyping(el) {
   let wi = 0, ci = 1, deleting = false;
@@ -84,7 +84,7 @@ export function renderHome() {
   <canvas class="hero-canvas" id="hero-canvas"></canvas>
   <div class="hero-inner">
     <div class="hero-badge">🚀 Gratis selamanya · Tanpa kartu</div>
-    <h1>Spektrum <span class="hero-type" id="hero-type"></span><span class="hero-cursor"></span></h1>
+    <h1>Spektrum<br/><span class="hero-type" id="hero-type"></span><span class="hero-cursor"></span></h1>
     <p>Invoice auto, link-in-bio, habit tracker —<br/>tiga alat gratis, satu platform.</p>
     ${auth.user ? `<p class="hero-greeting">👋 Halo, ${auth.user.name}!</p>` : `<button class="btn btn-primary btn-lg" id="home-login">Mulai Gratis →</button>`}
   </div>
