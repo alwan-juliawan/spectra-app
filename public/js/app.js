@@ -83,8 +83,12 @@ function navigate(path) {
 
 // ===== Boot =====
 async function boot() {
-  initTheme();
-  await initAuth();
+  try {
+    initTheme();
+    await initAuth();
+  } catch (e) {
+    console.error("boot init error:", e);
+  }
 
   // Handle nav clicks
   onAuthChange((loggedIn) => {
