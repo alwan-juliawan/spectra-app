@@ -83,30 +83,29 @@ function navigate(path) {
 
 // ===== Boot =====
 async function boot() {
-  try {
-    initTheme();
-    await initAuth();
-  } catch (e) {
-    console.error("boot init error:", e);
-  }
+  initTheme();
 
-  // Handle nav clicks
+  // Phase 1: render nav + page immediately (gak nunggu auth)
   onAuthChange((loggedIn) => {
     renderNav(loggedIn);
   });
-
-  // Initial nav render
   renderNav(!!auth.user);
 
-  // Handle browser back/forward
   window.addEventListener("popstate", () => navigate(location.pathname));
-
-  // Direct navigation
   window.__nav = navigate;
   window.__router = { rerender: () => navigate(location.pathname) };
-
-  // Route initial path
   navigate(location.pathname);
+
+  // Phase 2: auth check in background (cold start Render sampe 50s)
+  try {
+    await Promise.race([
+      initAuth(),
+      new Promise((_, r) => setTimeout(() => r(new Error("auth: timeout")), 8000)),
+    ]);
+  } catch (e) {
+    console.warn("auth check deferred:", e.message);
+  }
 }
 
-document.addEventListener("DOMContentLoaded", boot);
+// Module scripts auto-execute after DOM parsing — gak perlu DOMContentLoaded
+boot();
