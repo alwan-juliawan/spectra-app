@@ -37,7 +37,7 @@ function mockHabit() {
     <div class="mocku-h-row"><span class="mocku-h-label">Minum Air</span><div class="mocku-h-dots">${d(7, 3)}</div></div>
     <div class="mocku-h-row"><span class="mocku-h-label">Olahraga</span><div class="mocku-h-dots">${d(7, 4)}</div></div>
     <div class="mocku-h-row"><span class="mocku-h-label">Baca Buku</span><div class="mocku-h-dots">${d(7, 1)}</div></div>
-    <div class="mocku-h-foot"><span>Total 87</span><span>Streak 7</span><span>Pekan 12/21</span></div>
+    <div class="mocku-h-foot"><span>87</span><span>7</span><span>12/21</span></div>
   </div>`;
 }
 
