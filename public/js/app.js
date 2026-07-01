@@ -8,6 +8,13 @@ import { renderPublicBio } from "./pages/public.js";
 const APP = document.getElementById("app");
 const ROOT = document.getElementById("root");
 
+// Escape HTML biar nama user gak bisa inject markup
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
+  );
+}
+
 // ===== Theme =====
 function initTheme() {
   const stored = localStorage.getItem("spectra-theme");
@@ -58,6 +65,9 @@ const RESERVED = new Set(["/", "/invoice", "/page", "/habit"]);
 
 function navigate(path) {
   history.pushState(null, "", path);
+
+  // Nav selalu sync sama state auth
+  renderNav(!!auth.user);
 
   // SPA routes first
   const renderer = routes[path];
